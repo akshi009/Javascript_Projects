@@ -28,6 +28,10 @@ h1 {
   color: #333;
 }
 
+body.dark h1 {
+  color: #ebebeb;
+}
+
 .input-group {
   margin-bottom: 15px;
 }
@@ -134,3 +138,5 @@ body.dark .total {
 body.dark .tip {
   color: #aaa;
 }
+
+
