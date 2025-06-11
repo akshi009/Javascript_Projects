@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Get current time</h1>
+    <button type="button" onclick="show()">Don't Click</button>
+    <button id="hide" style="display: none;" onclick="hide()" >hide</button>
+    <p id="time"></p>
+    <script>
+        let timeid;
+        function hide() {
+            document.getElementById('time').style.display = 'none'
+            document.getElementById('hide').style.display = 'none'
+
+            clearInterval(timeid);
+        }
+        function show() {
+            const now = new Date();
+            document.getElementById('time').style.display = 'block';
+            document.getElementById('hide').style.display = 'inline';
+
+            time()
+        }
+
+        function time(){
+            clearInterval(timeid); 
+           timeid= setInterval(()=>{
+                const now = new Date();
+                document.getElementById('time').textContent = now.toLocaleTimeString();
+                // console.log(now.toLocaleTimeString())
+            },1000)
+            
+        }
+    </script>
+</body>
+</html>

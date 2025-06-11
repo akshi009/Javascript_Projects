@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Todo List</h1>
+        
+        <div class="input-container">
+            <input type="text" id="todo-input" placeholder="Add a new task...">
+            <button onclick="add()" id="add-btn">Add</button>
+        </div>
+        
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn " data-filter="active">Active</button>
+            <button class="filter-btn" data-filter="completed">Completed</button>
+        </div>
+        
+        <ul id="todo-list"></ul>
+        
+        <div class="stats">
+            <span id="remaining-count">0 items left</span>
+            <button id="clear-completed">Clear Completed</button>
+        </div>
+    </div>
+
+    <!-- <script src="script.js"></script> -->
+</body>
+<script>
+ function add(){
+    const input = document.getElementById('todo-input')
+    const remainingCount = document.getElementById('remaining-count');
+    const clearCompletedBtn = document.getElementById('clear-completed');
+
+    const todoText = input.value.trim();
+    if(todoText==="") return;
+    const todoList = document.getElementById('todo-list');
+    const li = document.createElement('li');
+   
+    
+    li.classList.add('todo-item');
+   const span = document.createElement('span');
+span.textContent = todoText;
+span.classList.add('todo-text');
+
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.classList.add('todo-checkbox');
+    checkbox.onclick=()=>{
+        if(checkbox.checked){
+            span.classList.add('completed');
+
+        } else {
+            span.classList.remove('completed');
+        }
+    }
+
+    
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'x';
+    deleteBtn.classList.add('delete-btn');
+    deleteBtn.onclick=()=>li.remove();
+   
+
+    li.appendChild(checkbox);
+    li.appendChild(span);
+    li.appendChild(deleteBtn);
+
+    input.value = '';
+
+    todoList.appendChild(li);
+    remainingCount.textContent = `${todoList.children.length} items left`;
+
+    clearCompletedBtn.onclick=()=>{
+        const items=todoList.querySelectorAll('.todo-item')
+        items.forEach(item=>{
+            const checkbox = item.querySelector('.todo-checkbox');
+            if(checkbox.checked){
+                item.remove();
+            }
+        })
+       
+    }
+
+applyFilter(document.querySelector('.filter-btn.active').dataset.filter);
+}
+
+function applyFilter(filter){
+    const todoitem= document.querySelectorAll('.todo-item');
+    todoitem.forEach(item=>{
+        const checkbox=item.querySelector('.todo-checkbox');
+        const ischecked = checkbox.checked;
+        if(filter === 'all'){
+            item.style.display = 'flex';
+        } else if(filter === 'active'){
+            item.style.display = ischecked ? 'none' : 'flex';
+        } else if(filter === 'completed'){
+            item.style.display = ischecked ? 'flex' : 'none';
+        }
+    })
+}
+const filterbtn=document.querySelectorAll('.filter-btn');
+
+filterbtn.forEach(btn=>{
+    btn.addEventListener("click",()=>{
+        filterbtn.forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.getAttribute('data-filter');
+        applyFilter(filter);
+    })
+})
+
+</script>
+
+</html>
