@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rock Paper Scissors</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+
+  <!-- Include the dotlottie-player module -->
+<script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+
+
+</head>
+<body>
+  <div class="game-container">
+    <h1>Rock Paper Scissors ✊✋✌️</h1>
+
+    <!-- Embed Lottie animation here -->
+<div class="center-output">
+  <dotlottie-player
+    id="animation"
+    src="https://lottie.host/e5b71a27-590d-41bf-b73c-1ef4e2d48ffb/nHUhJy0zsX.lottie"
+    background="transparent"
+    speed="0.5"
+    loop
+    autoplay>
+  </dotlottie-player>
+  <div  id="computer-output"></div>
+  <!-- <div id="computer-output" style="width: 200px; height: 200px; margin-bottom: 30px;"></div> -->
+</div>
+
+
+
+    <!-- Game content below -->
+    <div class="scoreboard" style="flex-direction:row;">
+      <p>You: <span id="user-score">0</span></p>
+      <p>Computer: <span id="comp-score">0</span></p>
+    </div>
+
+    <div id="timer">timer: 3 sec</div>
+
+    <div class="choices">
+      <button class="choice " data-choice="rock">✊</button>
+      <button class="choice" data-choice="paper">✋</button>
+      <button class="choice" data-choice="scissors">✌️</button>
+    </div>
+
+    <div class="result">
+      <p id="result-text">Make your move!</p>
+    </div>
+    <button id="restart"> restart </button>
+  </div>
+
+  <!-- Your script.js if needed -->
+  <script src="script.js" type="module"></script>
+</body>
+</html>
