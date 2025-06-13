@@ -82,6 +82,7 @@ span.classList.add('todo-text');
             const checkbox = item.querySelector('.todo-checkbox');
             if(checkbox.checked){
                 item.remove();
+                remainingCount.textContent = `${todoList.children.length} items left`;
             }
         })
        
