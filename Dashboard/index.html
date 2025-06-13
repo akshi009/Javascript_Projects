@@ -1,58 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Dashboard</title>
     <style>
         :root {
-    --bg-dark: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
-    --bg-light: linear-gradient(135deg, #f5f7fa, #e4ecf7);
-    
-    --text-dark: rgba(255, 255, 255, 0.7);
-    --text-light: #333;
+            --bg-dark: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            --bg-light: linear-gradient(135deg, #f5f7fa, #e4ecf7);
 
-    --card-dark: rgba(255, 255, 255, 0.05);
-    --card-light: rgba(255, 255, 255, 0.9);
+            --text-dark: rgba(255, 255, 255, 0.7);
+            --text-light: #333;
 
-    --border-dark: rgba(255, 255, 255, 0.1);
-    --border-light: rgba(0, 0, 0, 0.05);
-}
+            --card-dark: rgba(255, 255, 255, 0.05);
+            --card-light: rgba(255, 255, 255, 0.9);
 
-/* 🌙 Dark mode styles */
-body.dark {
-    background: var(--bg-dark);
-    color: var(--text-dark);
-}
+            --border-dark: rgba(255, 255, 255, 0.1);
+            --border-light: rgba(0, 0, 0, 0.05);
+        }
 
-body.dark .card-title,
-body.dark .card-description {
-    color: rgba(255, 255, 255, 0.8);
-}
+        /* 🌙 Dark mode styles */
+        body.dark {
+            background: var(--bg-dark);
+            color: var(--text-dark);
+        }
 
-body.dark .dashboard-card {
-    background: var(--card-dark);
-    border-color: var(--border-dark);
-}
+        body.dark .card-title,
+        body.dark .card-description {
+            color: rgba(255, 255, 255, 0.8);
+        }
 
-/* ☀️ Light mode styles */
-body:not(.dark) {
-    background: var(--bg-light);
-    color: var(--text-light);
-}
+        body.dark .dashboard-card {
+            background: var(--card-dark);
+            border-color: var(--border-dark);
+        }
 
-body:not(.dark) .card-title {
-    color: #111;
-}
+        /* ☀️ Light mode styles */
+        body:not(.dark) {
+            background: var(--bg-light);
+            color: var(--text-light);
+        }
 
-body:not(.dark) .card-description {
-    color: #444;
-}
+        body:not(.dark) .card-title {
+            color: #111;
+        }
 
-body:not(.dark) .dashboard-card {
-    background: var(--card-light);
-    border-color: var(--border-light);
-}
+        body:not(.dark) .card-description {
+            color: #444;
+        }
+
+        body:not(.dark) .dashboard-card {
+            background: var(--card-light);
+            border-color: var(--border-light);
+        }
 
         * {
             margin: 0;
@@ -173,7 +174,7 @@ body:not(.dark) .dashboard-card {
 
         .dashboard-card:hover {
             transform: translateY(-10px) scale(1.02);
-           
+
             /* box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
                         0 0 60px rgba(102, 126, 234, 0.2); */
             border-color: rgba(102, 126, 234, 0.3);
@@ -194,7 +195,7 @@ body:not(.dark) .dashboard-card {
         }
 
         .dashboard-card:hover .card-icon {
-            transform: scale(1.1) ;
+            transform: scale(1.1);
         }
 
         .rock-paper-scissors .card-icon {
@@ -216,6 +217,15 @@ body:not(.dark) .dashboard-card {
             background: linear-gradient(135deg, #a29bfe, #6c5ce7);
             box-shadow: 0 0 30px rgba(162, 155, 254, 0.4);
         }
+
+        .personality-test .card-icon {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            /* soft pink to peach */
+            box-shadow: 0 0 30px rgba(255, 154, 158, 0.4);
+            color: #6a1b9a;
+            /* rich purple text for contrast */
+        }
+
 
         .card-title {
             font-size: 1.5rem;
@@ -241,14 +251,15 @@ body:not(.dark) .dashboard-card {
             animation: orbit 20s linear infinite;
             pointer-events: none;
         }
-         .toggle-group {
+
+        .toggle-group {
             display: flex;
             flex-direction: column;
             align-items: end;
             gap: 0.5rem;
         }
 
-          .toggle-label {
+        .toggle-label {
             font-size: 14px;
             font-weight: 500;
             opacity: 0.7;
@@ -270,7 +281,7 @@ body:not(.dark) .dashboard-card {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-         body.dark-mode .circular-toggle {
+        body.dark-mode .circular-toggle {
             background: var(--card-dark);
             border-color: var(--border-dark);
         }
@@ -288,18 +299,19 @@ body:not(.dark) .dashboard-card {
             transition: all 0.3s ease;
         }
 
-       @keyframes rotateTheme {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+        @keyframes rotateTheme {
+            from {
+                transform: rotate(0deg);
+            }
 
-.theme-icon.rotate {
-  animation: rotateTheme 0.6s ease-in-out;
-}
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .theme-icon.rotate {
+            animation: rotateTheme 0.6s ease-in-out;
+        }
 
 
         .orb-1 {
@@ -319,18 +331,37 @@ body:not(.dark) .dashboard-card {
         }
 
         @keyframes orbit {
-            0% { transform: rotate(0deg) translateX(50px) rotate(0deg); }
-            100% { transform: rotate(360deg) translateX(50px) rotate(-360deg); }
+            0% {
+                transform: rotate(0deg) translateX(50px) rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg) translateX(50px) rotate(-360deg);
+            }
         }
 
         @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Responsive design */
@@ -338,16 +369,16 @@ body:not(.dark) .dashboard-card {
             .container {
                 padding: 1rem;
             }
-            
+
             .header h1 {
                 font-size: 2.5rem;
             }
-            
+
             .dashboard-grid {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
-            
+
             .dashboard-card {
                 padding: 1.5rem;
                 min-height: 180px;
@@ -365,16 +396,28 @@ body:not(.dark) .dashboard-card {
             opacity: 0;
         }
 
-        .dashboard-card:nth-child(1) { animation-delay: 0.1s; }
-        .dashboard-card:nth-child(2) { animation-delay: 0.2s; }
-        .dashboard-card:nth-child(3) { animation-delay: 0.3s; }
-        .dashboard-card:nth-child(4) { animation-delay: 0.4s; }
+        .dashboard-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .dashboard-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .dashboard-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .dashboard-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
 
         @keyframes cardLoad {
             from {
                 opacity: 0;
                 transform: translateY(30px) scale(0.9);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
@@ -382,14 +425,15 @@ body:not(.dark) .dashboard-card {
         }
     </style>
 </head>
+
 <body>
     <div class="particles" id="particles"></div>
-    
+
     <div class="floating-orb orb-1"></div>
     <div class="floating-orb orb-2"></div>
-    
+
     <div class="container">
-       <div class="toggle-group">
+        <div class="toggle-group">
             <!-- <span class="toggle-label">Circular Toggle</span> -->
             <div class="circular-toggle" id="circular-toggle">
                 <span class="theme-icon">☀️</span>
@@ -400,58 +444,66 @@ body:not(.dark) .dashboard-card {
             <h1>Javascript Projects</h1>
             <!-- <p>Choose your adventure from the collection below</p> -->
         </header>
-        
+
         <div class="dashboard-grid">
             <a href="./Stone_Paper_Scissor/index.html" class="dashboard-card rock-paper-scissors">
                 <div class="card-icon">✂️</div>
                 <h3 class="card-title">Rock Paper Scissors</h3>
                 <p class="card-description">Challenge yourself in the classic game of strategy and luck</p>
             </a>
-            
+
             <a href="./getcurrenttime/index.htm" class="dashboard-card current-time">
                 <div class="card-icon">🕒</div>
                 <h3 class="card-title">Current Time</h3>
                 <p class="card-description">Stay on track with real-time clock information</p>
             </a>
-            
+
             <a href="./todolist/index.html" class="dashboard-card todo-list">
                 <div class="card-icon">📝</div>
                 <h3 class="card-title">To-Do List</h3>
                 <p class="card-description">Organize your tasks and boost your productivity</p>
             </a>
-            
+
             <a href="./tip_calculator/index.html" class="dashboard-card tip-calculator">
                 <div class="card-icon">💰</div>
                 <h3 class="card-title">Tip Calculator</h3>
                 <p class="card-description">Calculate tips and split bills with ease</p>
             </a>
+            <a href="./Personalitytest/index.html" class="dashboard-card personality-test">
+                <div class="card-icon">❤️</div>
+                <h3 class="card-title">Personality Test</h3>
+                <p class="card-description">Uncover your inner chaos, charm, or cat-like mystery</p>
+            </a>
+
         </div>
     </div>
 
     <script>
         const toggle = document.getElementById('circular-toggle');
-        window.onload=()=>{
+        window.onload = () => {
             const darkmode = localStorage.getItem('darkMode') === 'true';
             document.body.classList.toggle('dark', darkmode);
             toggle.textContent = darkmode ? '☀️' : '🌙';
         }
         toggle.addEventListener('click', () => {
-    icon.classList.add('rotate');
+            icon.classList.add('rotate');
 
-    // Reset the animation class after it finishes
-    icon.addEventListener('animationend', () => {
-      icon.classList.remove('rotate');
-    }, { once: true });})
+            // Reset the animation class after it finishes
+            icon.addEventListener('animationend', () => {
+                icon.classList.remove('rotate');
+            }, { once: true });
+        })
 
-        toggle.addEventListener('click',()=>{
+        toggle.addEventListener('click', () => {
             document.body.classList.toggle('dark')
-            
+
             const isDark = document.body.classList.contains('dark');
-            toggle.textContent=isDark? '☀️' : '🌙';
+            toggle.textContent = isDark ? '☀️' : '🌙';
             localStorage.setItem('darkMode', isDark);
         })
     </script>
 
-      
+
 </body>
+
 </html>
