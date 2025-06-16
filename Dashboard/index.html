@@ -1,509 +1,591 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Interactive Dashboard</title>
     <style>
-        :root {
-            --bg-dark: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
-            --bg-light: linear-gradient(135deg, #f5f7fa, #e4ecf7);
+      :root {
+        --bg-dark: linear-gradient(
+          135deg,
+          #0a0a0a 0%,
+          #1a1a2e 50%,
+          #16213e 100%
+        );
+        --bg-light: linear-gradient(135deg, #f5f7fa, #e4ecf7);
 
-            --text-dark: rgba(255, 255, 255, 0.7);
-            --text-light: #333;
+        --text-dark: rgba(255, 255, 255, 0.7);
+        --text-light: #333;
 
-            --card-dark: rgba(255, 255, 255, 0.05);
-            --card-light: rgba(255, 255, 255, 0.9);
+        --card-dark: rgba(255, 255, 255, 0.05);
+        --card-light: rgba(255, 255, 255, 0.9);
 
-            --border-dark: rgba(255, 255, 255, 0.1);
-            --border-light: rgba(0, 0, 0, 0.05);
-        }
+        --border-dark: rgba(255, 255, 255, 0.1);
+        --border-light: rgba(0, 0, 0, 0.05);
+      }
 
-        /* 🌙 Dark mode styles */
-        body.dark {
-            background: var(--bg-dark);
-            color: var(--text-dark);
-        }
+      /* 🌙 Dark mode styles */
+      body.dark {
+        background: var(--bg-dark);
+        color: var(--text-dark);
+      }
 
-        body.dark .card-title,
-        body.dark .card-description {
-            color: rgba(255, 255, 255, 0.8);
-        }
+      body.dark .card-title,
+      body.dark .card-description {
+        color: rgba(255, 255, 255, 0.8);
+      }
 
-        body.dark .dashboard-card {
-            background: var(--card-dark);
-            border-color: var(--border-dark);
-        }
+      body.dark .dashboard-card {
+        background: var(--card-dark);
+        border-color: var(--border-dark);
+      }
 
-        /* ☀️ Light mode styles */
-        body:not(.dark) {
-            background: var(--bg-light);
-            color: var(--text-light);
-        }
+      /* ☀️ Light mode styles */
+      body:not(.dark) {
+        background: var(--bg-light);
+        color: var(--text-light);
+      }
 
-        body:not(.dark) .card-title {
-            color: #111;
-        }
+      body:not(.dark) .card-title {
+        color: #111;
+      }
 
-        body:not(.dark) .card-description {
-            color: #444;
-        }
+      body:not(.dark) .card-description {
+        color: #444;
+      }
 
-        body:not(.dark) .dashboard-card {
-            background: var(--card-light);
-            border-color: var(--border-light);
-        }
+      body:not(.dark) .dashboard-card {
+        background: var(--card-light);
+        border-color: var(--border-light);
+      }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        background: linear-gradient(
+          135deg,
+          #0a0a0a 0%,
+          #1a1a2e 50%,
+          #16213e 100%
+        );
+        min-height: 100vh;
+        overflow-x: hidden;
+        position: relative;
+      }
 
-        /* Animated background particles */
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
+      /* Animated background particles */
+      .particles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+      }
 
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
-        }
+      .particle {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        animation: float 6s ease-in-out infinite;
+      }
 
-        /* @keyframes float {
+      /* @keyframes float {
             0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.1; }
             50% { transform: translateY(-20px) rotate(180deg); opacity: 0.3; }
         } */
 
-        .container {
-            position: relative;
-            z-index: 10;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+      .container {
+        position: relative;
+        z-index: 10;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2rem;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 3rem;
+        animation: slideDown 0.8s ease-out;
+      }
+
+      .header h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
+      }
+
+      .header p {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 1.2rem;
+        font-weight: 300;
+      }
+
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+        flex: 1;
+        animation: slideUp 0.8s ease-out 0.2s both;
+      }
+
+      .dashboard-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        min-height: 200px;
+      }
+
+      .dashboard-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.1) 0%,
+          transparent 50%
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .dashboard-card:hover::before {
+        opacity: 1;
+      }
+
+      .dashboard-card:hover {
+        transform: translateY(-10px) scale(1.02);
+
+        /* box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
+                        0 0 60px rgba(102, 126, 234, 0.2); */
+        border-color: rgba(102, 126, 234, 0.3);
+      }
+
+      .card-icon {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+        font-size: 2.5rem;
+        transition: all 0.3s ease;
+        position: relative;
+        z-index: 2;
+      }
+
+      .dashboard-card:hover .card-icon {
+        transform: scale(1.1);
+      }
+
+      .rock-paper-scissors .card-icon {
+        background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+        box-shadow: 0 0 30px rgba(255, 107, 107, 0.4);
+      }
+
+      .current-time .card-icon {
+        background: linear-gradient(135deg, #4ecdc4, #44a08d);
+        box-shadow: 0 0 30px rgba(78, 205, 196, 0.4);
+      }
+
+      .todo-list .card-icon {
+        background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+        box-shadow: 0 0 30px rgba(253, 203, 110, 0.4);
+      }
+
+      .tip-calculator .card-icon {
+        background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+        box-shadow: 0 0 30px rgba(162, 155, 254, 0.4);
+      }
+
+      .personality-test .card-icon {
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        /* soft pink to peach */
+        box-shadow: 0 0 30px rgba(255, 154, 158, 0.4);
+        color: #6a1b9a;
+        /* rich purple text for contrast */
+      }
+
+      .card-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: white;
+        margin-bottom: 0.5rem;
+        position: relative;
+        z-index: 2;
+      }
+
+      .card-description {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.95rem;
+        line-height: 1.5;
+        position: relative;
+        z-index: 2;
+      }
+
+      .floating-orb {
+        position: absolute;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(102, 126, 234, 0.1) 0%,
+          transparent 70%
+        );
+        animation: orbit 20s linear infinite;
+        pointer-events: none;
+      }
+
+      .toggle-group {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        gap: 0.5rem;
+      }
+
+      .toggle-label {
+        font-size: 14px;
+        font-weight: 500;
+        opacity: 0.7;
+      }
+
+      .circular-toggle {
+        position: relative;
+        width: 50px;
+        height: 50px;
+        background: var(--card-light);
+        border: 2px solid var(--border-light);
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      body.dark-mode .circular-toggle {
+        background: var(--card-dark);
+        border-color: var(--border-dark);
+      }
+
+      .circular-toggle:hover {
+        transform: scale(1.1);
+        /* box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); */
+      }
+
+      .circular-toggle:active {
+        transform: scale(0.95);
+      }
+
+      .theme-icon {
+        transition: all 0.3s ease;
+      }
+
+      @keyframes rotateTheme {
+        from {
+          transform: rotate(0deg);
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 3rem;
-            animation: slideDown 0.8s ease-out;
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .theme-icon.rotate {
+        animation: rotateTheme 0.6s ease-in-out;
+      }
+
+      .orb-1 {
+        width: 300px;
+        height: 300px;
+        top: 10%;
+        left: -10%;
+      }
+
+      .orb-2 {
+        width: 200px;
+        height: 200px;
+        bottom: 20%;
+        right: -5%;
+        animation-direction: reverse;
+        animation-duration: 15s;
+      }
+
+      @keyframes orbit {
+        0% {
+          transform: rotate(0deg) translateX(50px) rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(360deg) translateX(50px) rotate(-360deg);
+        }
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .card-tag {
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 12px;
+        margin-top: 1rem;
+        display: inline-block;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+    .tag {
+  background: rgba(255, 255, 255, 0.2); /* transparent white */
+  color: #bcb9b9;
+}
+/* 
+.medium {
+  background: rgba(255, 255, 255, 0.2);
+  color: #856404;
+}
+
+.hard {
+  background: rgba(255, 255, 255, 0.2);
+  color: #721c24;
+} */
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .container {
+          padding: 1rem;
         }
 
         .header h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
-        }
-
-        .header p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1.2rem;
-            font-weight: 300;
+          font-size: 2.5rem;
         }
 
         .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            flex: 1;
-            animation: slideUp 0.8s ease-out 0.2s both;
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
         }
 
         .dashboard-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            min-height: 200px;
+          padding: 1.5rem;
+          min-height: 180px;
+        }
+      }
+
+      /* Interactive hover effects */
+      .dashboard-card:active {
+        transform: translateY(-5px) scale(0.98);
+      }
+
+      /* Loading animation for cards */
+      .dashboard-card {
+        animation: cardLoad 0.6s ease-out forwards;
+        opacity: 0;
+      }
+
+      .dashboard-card:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+
+      .dashboard-card:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .dashboard-card:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+
+      .dashboard-card:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes cardLoad {
+        from {
+          opacity: 0;
+          transform: translateY(30px) scale(0.9);
         }
 
-        .dashboard-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
         }
-
-        .dashboard-card:hover::before {
-            opacity: 1;
-        }
-
-        .dashboard-card:hover {
-            transform: translateY(-10px) scale(1.02);
-
-            /* box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
-                        0 0 60px rgba(102, 126, 234, 0.2); */
-            border-color: rgba(102, 126, 234, 0.3);
-        }
-
-        .card-icon {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 20px;
-            font-size: 2.5rem;
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 2;
-        }
-
-        .dashboard-card:hover .card-icon {
-            transform: scale(1.1);
-        }
-
-        .rock-paper-scissors .card-icon {
-            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
-            box-shadow: 0 0 30px rgba(255, 107, 107, 0.4);
-        }
-
-        .current-time .card-icon {
-            background: linear-gradient(135deg, #4ecdc4, #44a08d);
-            box-shadow: 0 0 30px rgba(78, 205, 196, 0.4);
-        }
-
-        .todo-list .card-icon {
-            background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
-            box-shadow: 0 0 30px rgba(253, 203, 110, 0.4);
-        }
-
-        .tip-calculator .card-icon {
-            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
-            box-shadow: 0 0 30px rgba(162, 155, 254, 0.4);
-        }
-
-        .personality-test .card-icon {
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-            /* soft pink to peach */
-            box-shadow: 0 0 30px rgba(255, 154, 158, 0.4);
-            color: #6a1b9a;
-            /* rich purple text for contrast */
-        }
-
-
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: white;
-            margin-bottom: 0.5rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .card-description {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.95rem;
-            line-height: 1.5;
-            position: relative;
-            z-index: 2;
-        }
-
-        .floating-orb {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
-            animation: orbit 20s linear infinite;
-            pointer-events: none;
-        }
-
-        .toggle-group {
-            display: flex;
-            flex-direction: column;
-            align-items: end;
-            gap: 0.5rem;
-        }
-
-        .toggle-label {
-            font-size: 14px;
-            font-weight: 500;
-            opacity: 0.7;
-        }
-
-        .circular-toggle {
-            position: relative;
-            width: 50px;
-            height: 50px;
-            background: var(--card-light);
-            border: 2px solid var(--border-light);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        body.dark-mode .circular-toggle {
-            background: var(--card-dark);
-            border-color: var(--border-dark);
-        }
-
-        .circular-toggle:hover {
-            transform: scale(1.1);
-            /* box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); */
-        }
-
-        .circular-toggle:active {
-            transform: scale(0.95);
-        }
-
-        .theme-icon {
-            transition: all 0.3s ease;
-        }
-
-        @keyframes rotateTheme {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .theme-icon.rotate {
-            animation: rotateTheme 0.6s ease-in-out;
-        }
-
-
-        .orb-1 {
-            width: 300px;
-            height: 300px;
-            top: 10%;
-            left: -10%;
-        }
-
-        .orb-2 {
-            width: 200px;
-            height: 200px;
-            bottom: 20%;
-            right: -5%;
-            animation-direction: reverse;
-            animation-duration: 15s;
-        }
-
-        @keyframes orbit {
-            0% {
-                transform: rotate(0deg) translateX(50px) rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg) translateX(50px) rotate(-360deg);
-            }
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive design */
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-
-            .header h1 {
-                font-size: 2.5rem;
-            }
-
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .dashboard-card {
-                padding: 1.5rem;
-                min-height: 180px;
-            }
-        }
-
-        /* Interactive hover effects */
-        .dashboard-card:active {
-            transform: translateY(-5px) scale(0.98);
-        }
-
-        /* Loading animation for cards */
-        .dashboard-card {
-            animation: cardLoad 0.6s ease-out forwards;
-            opacity: 0;
-        }
-
-        .dashboard-card:nth-child(1) {
-            animation-delay: 0.1s;
-        }
-
-        .dashboard-card:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .dashboard-card:nth-child(3) {
-            animation-delay: 0.3s;
-        }
-
-        .dashboard-card:nth-child(4) {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes cardLoad {
-            from {
-                opacity: 0;
-                transform: translateY(30px) scale(0.9);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="particles" id="particles"></div>
 
     <div class="floating-orb orb-1"></div>
     <div class="floating-orb orb-2"></div>
 
     <div class="container">
-        <div class="toggle-group">
-            <!-- <span class="toggle-label">Circular Toggle</span> -->
-            <div class="circular-toggle" id="circular-toggle">
-                <span class="theme-icon">☀️</span>
-            </div>
+      <div class="toggle-group">
+        <!-- <span class="toggle-label">Circular Toggle</span> -->
+        <div class="circular-toggle" id="circular-toggle">
+          <span class="theme-icon">☀️</span>
         </div>
+      </div>
 
-        <header class="header">
-            <h1>Javascript Projects</h1>
-            <!-- <p>Choose your adventure from the collection below</p> -->
-        </header>
+      <header class="header">
+        <h1>Javascript Projects</h1>
+        <!-- <p>Choose your adventure from the collection below</p> -->
+      </header>
 
-        <div class="dashboard-grid">
-            <a href="./Stone_Paper_Scissor/index.html" class="dashboard-card rock-paper-scissors">
-                <div class="card-icon">✂️</div>
-                <h3 class="card-title">Rock Paper Scissors</h3>
-                <p class="card-description">Challenge yourself in the classic game of strategy and luck</p>
-            </a>
+      <div class="dashboard-grid">
+        <a
+          href="./Stone_Paper_Scissor/index.html"
+          class="dashboard-card rock-paper-scissors"
+        >
+          <div class="card-icon">✂️</div>
+          <h3 class="card-title">Rock Paper Scissors</h3>
+          <p class="card-description">
+            Challenge yourself in the classic game of strategy and luck
+          </p>
+          <div class="card-tag tag">Easy</div>
+        </a>
 
-            <a href="./getcurrenttime/index.htm" class="dashboard-card current-time">
-                <div class="card-icon">🕒</div>
-                <h3 class="card-title">Current Time</h3>
-                <p class="card-description">Stay on track with real-time clock information</p>
-            </a>
+        <a
+          href="./getcurrenttime/index.htm"
+          class="dashboard-card current-time"
+        >
+          <div class="card-icon">🕒</div>
+          <h3 class="card-title">Current Time</h3>
+          <p class="card-description">
+            Stay on track with real-time clock information
+          </p>
+          <div class="card-tag tag">Easy</div>
+        </a>
 
-            <a href="./todolist/index.html" class="dashboard-card todo-list">
-                <div class="card-icon">📝</div>
-                <h3 class="card-title">To-Do List</h3>
-                <p class="card-description">Organize your tasks and boost your productivity</p>
-            </a>
+        <a href="./todolist/index.html" class="dashboard-card todo-list">
+          <div class="card-icon">📝</div>
+          <h3 class="card-title">To-Do List</h3>
+          <p class="card-description">
+            Organize your tasks and boost your productivity
+          </p>
+          <div class="card-tag tag">Easy</div>
+        </a>
 
-            <a href="./tip_calculator/index.html" class="dashboard-card tip-calculator">
-                <div class="card-icon">💰</div>
-                <h3 class="card-title">Tip Calculator</h3>
-                <p class="card-description">Calculate tips and split bills with ease</p>
-            </a>
-            <a href="./Personalitytest/index.html" class="dashboard-card personality-test">
-                <div class="card-icon">❤️</div>
-                <h3 class="card-title">Personality Test</h3>
-                <p class="card-description">Uncover your inner chaos, charm, or cat-like mystery</p>
-            </a>
+        <a
+          href="./tip_calculator/index.html"
+          class="dashboard-card tip-calculator"
+        >
+          <div class="card-icon">💰</div>
+          <h3 class="card-title">Tip Calculator</h3>
+          <p class="card-description">
+            Calculate tips and split bills with ease
+          </p>
+          <div class="card-tag tag">Easy</div>
+        </a>
 
-        </div>
+        <a
+          href="./Personalitytest/index.html"
+          class="dashboard-card personality-test"
+        >
+          <div class="card-icon">❤️</div>
+          <h3 class="card-title">Personality Test</h3>
+          <p class="card-description">
+            Uncover your friends' true personalities with playful and quirky
+            questions
+          </p>
+          <div class="card-tag tag">Easy</div>
+        </a>
+
+        <a
+          href="https://typing-speed-test-psi-six.vercel.app"
+          class="dashboard-card rock-paper-scissors"
+        >
+          <div class="card-icon">🤓</div>
+          <h3 class="card-title">Typing speed game</h3>
+          <p class="card-description">
+            How fast can your fingers fly? Let’s find out 🚀
+          </p>
+          <div class="card-tag tag">Medium</div>
+        </a>
+      </div>
     </div>
 
     <script>
-        const toggle = document.getElementById('circular-toggle');
-        window.onload = () => {
-            const darkmode = localStorage.getItem('darkMode') === 'true';
-            document.body.classList.toggle('dark', darkmode);
-            toggle.textContent = darkmode ? '☀️' : '🌙';
-        }
-        toggle.addEventListener('click', () => {
-            icon.classList.add('rotate');
+      const toggle = document.getElementById("circular-toggle");
+      window.onload = () => {
+        const darkmode = localStorage.getItem("darkMode") === "true";
+        document.body.classList.toggle("dark", darkmode);
+        toggle.textContent = darkmode ? "☀️" : "🌙";
+      };
+      toggle.addEventListener("click", () => {
+        icon.classList.add("rotate");
 
-            // Reset the animation class after it finishes
-            icon.addEventListener('animationend', () => {
-                icon.classList.remove('rotate');
-            }, { once: true });
-        })
+        // Reset the animation class after it finishes
+        icon.addEventListener(
+          "animationend",
+          () => {
+            icon.classList.remove("rotate");
+          },
+          { once: true }
+        );
+      });
 
-        toggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark')
+      toggle.addEventListener("click", () => {
+        document.body.classList.toggle("dark");
 
-            const isDark = document.body.classList.contains('dark');
-            toggle.textContent = isDark ? '☀️' : '🌙';
-            localStorage.setItem('darkMode', isDark);
-        })
+        const isDark = document.body.classList.contains("dark");
+        toggle.textContent = isDark ? "☀️" : "🌙";
+        localStorage.setItem("darkMode", isDark);
+      });
     </script>
-
-
-</body>
-
+  </body>
 </html>
