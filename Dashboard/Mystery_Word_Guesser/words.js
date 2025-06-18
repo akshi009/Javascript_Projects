@@ -1,0 +1,35 @@
+const words = [
+  { word: "absurd", hint: "Ridiculously unreasonable" },
+  { word: "regret", hint: "Feeling sorrow over a past action" },
+  { word: "wither", hint: "To dry up or fade away" },
+  { word: "jungle", hint: "A dense, tropical forest" },
+  { word: "crisis", hint: "A time of intense difficulty" },
+  { word: "vision", hint: "The ability to see or imagine" },
+  { word: "gossip", hint: "Casual talk about others" },
+  { word: "humble", hint: "Modest or not boastful" },
+  { word: "wallet", hint: "Used to carry money/cards" },
+  { word: "random", hint: "Without pattern or order" },
+  { word: "strain", hint: "To exert effort or stress" },
+  { word: "honest", hint: "Truthful and sincere" },
+  { word: "wander", hint: "To move without a fixed plan" },
+  { word: "thrive", hint: "To grow or develop well" },
+  { word: "decent", hint: "Good enough, acceptable" },
+  { word: "symbol", hint: "A sign that represents something" },
+  { word: "mental", hint: "Related to the mind" },
+  { word: "rescue", hint: "To save from danger" },
+  { word: "moment", hint: "A very short time" },
+  { word: "trophy", hint: "An award for victory" },
+  { word: "debate", hint: "A formal argument or discussion" },
+  { word: "ribbon", hint: "A strip of decorative fabric" },
+  { word: "danger", hint: "The possibility of harm" },
+  { word: "defend", hint: "To protect from attack" },
+  { word: "reward", hint: "Something given in return for effort" },
+  { word: "effort", hint: "Physical or mental energy used" },
+  { word: "insane", hint: "Extremely foolish or mentally ill" },
+  { word: "retire", hint: "To stop working after a career" },
+  { word: "travel", hint: "To go from one place to another" },
+  { word: "bright", hint: "Full of light or intelligence" }
+];
+
+
+  export default words

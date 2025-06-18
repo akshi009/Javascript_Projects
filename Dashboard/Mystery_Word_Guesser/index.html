@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mystery Word Solver</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+     <p class="word-length-display">Word Length: <span id="wordlength">0</span></p>
+    <h1>🧠 Mystery Word Solver</h1>
+
+    <div class="game-section">
+      <!-- <div class="dash" id="wordDisplay">_ _ _ _ _</div> -->
+        <div class="response" id="responseArea"></div>
+      <p class="hint-text" id="hint">Ask Yes/No Questions Below 👇</p>
+      
+      <div class="input-area">
+        <input type="text" id="questionInput" placeholder="Enter Word" />
+        <button id="submitBtn">Ask</button>
+      </div>
+
+    
+
+      <div class="status">
+        <p>Guesses Left: <span id="guessCount">6</span></p>
+       
+      </div>
+
+      <button class="reset-btn" id="resetGame">🔄 New Game</button>
+    </div>
+
+    <!-- <footer>
+      <p>Made with 💡 by You</p>
+    </footer> -->
+  </div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
