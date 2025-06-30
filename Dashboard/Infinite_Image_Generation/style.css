@@ -1,0 +1,80 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f5f7fa;
+  color: #333;
+  padding: 20px;
+}
+
+.gallery-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #4a4a4a;
+}
+
+.gallery-container {
+  column-count: 4; 
+  column-gap: 12px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.gallery-container img {
+  width: 100%;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  break-inside: avoid;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.gallery-container img:hover {
+  transform: scale(1.03);
+}
+
+
+.loading {
+  text-align: center;
+  margin: 30px 0;
+  font-size: 14px;
+  color: #777;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+.fade-in.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#search {
+  display: block;
+  width: 280px;
+  max-width: 100%;
+  margin: 0 auto 20px auto;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+#search:focus {
+  border-color: #4f46e5; /* Indigo */
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+

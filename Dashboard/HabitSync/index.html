@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MindSprint - Level Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+   <div class="container">
+    <h1>MindSprint 🧠</h1>
+    <div id="level-screen">
+      <h2>Level <span id="level-number">1</span></h2>
+      <div id="lives-display">Lives: ❤️❤️❤️</div>
+       <div id="remaining-tiles" style="display: none;">Remaining: 0</div>
+      <p id="level-instructions">Click "Start" to begin the Memory Game!</p>
+      <button id="start-button">Start</button>
+    </div>
+
+    <div id="game-area"></div>
+
+    <div id="next-level">
+      <div class="success-message">🎉 Level Complete!</div>
+      <p>Well done! Get ready for the next level.</p>
+      <button id="next-button">Next Level</button>
+    </div>
+
+    <div id="game-over">
+      <div class="success-message">💀 Game Over!</div>
+      <p>You ran out of lives! Final Level: <span id="final-level"></span></p>
+      <button id="restart-button">Play Again</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
