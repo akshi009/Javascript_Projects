@@ -11,7 +11,7 @@ const guesscount = document.getElementById('guessCount')
 // Pick a random word
 const word = words[Math.floor(Math.random() * words.length)]
 hint.textContent = 'Hint: ' + word.hint
-console.log("WORD:", word.word)
+// console.log("WORD:", word.word)
 
 wordlength.textContent = word.word.length
 
@@ -36,7 +36,7 @@ reset.addEventListener('click', () => {
 })
 
 // Handle Submit
-submit.addEventListener('click', () => {
+function handlesubmit () {
   const guess = input.value.toLowerCase()
   const actual = word.word
 
@@ -46,7 +46,7 @@ submit.addEventListener('click', () => {
   const boxes = row.children
 
   for (let i = 0; i < 6; i++) {
-    const letter = guess[i] || ""  // Fill blank if too short
+    const letter = guess[i] || ""  
     const box = boxes[i]
     box.textContent = letter.toUpperCase()
 
@@ -60,7 +60,7 @@ submit.addEventListener('click', () => {
       box.style.backgroundColor = "gray"
       box.style.color = "white"
     } else {
-      box.style.backgroundColor = "#e0e0e0" // Neutral gray for blanks
+      box.style.backgroundColor = "#e0e0e0" 
       box.style.color = "#999"
     }
   }
@@ -93,4 +93,15 @@ submit.addEventListener('click', () => {
     input.disabled = true
     submit.disabled = true
   }
+}
+
+submit.addEventListener('click', handlesubmit)
+input.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault()
+    handlesubmit()
+  }
 })
+
+
+
